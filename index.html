@@ -6,60 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>innControl | Hotel Management System</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Google Material Symbols -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body>
 
+    <!-- Top Navigation -->
     <nav class="topbar">
-        <div class="logo">
-            <h1>innControl</h1>
-        </div>
+        <div class="logo"><h1>innControl</h1></div>
         <div class="nav-links" id="sidebar-nav">
             <a href="#" class="nav-item active" data-target="dashboard">
-                <span class="material-symbols-rounded">dashboard</span>
-                Dashboard
+                <span class="material-symbols-rounded">dashboard</span>Dashboard
             </a>
             <a href="#" class="nav-item" data-target="room-management">
-                <span class="material-symbols-rounded">meeting_room</span>
-                Room Management
+                <span class="material-symbols-rounded">meeting_room</span>Rooms
             </a>
             <a href="#" class="nav-item" data-target="reservations">
-                <span class="material-symbols-rounded">event_available</span>
-                Reservations
+                <span class="material-symbols-rounded">event_available</span>Reservations
             </a>
             <a href="#" class="nav-item" data-target="guests">
-                <span class="material-symbols-rounded">group</span>
-                Guests
+                <span class="material-symbols-rounded">group</span>Guests
             </a>
             <a href="#" class="nav-item" data-target="payments">
-                <span class="material-symbols-rounded">payments</span>
-                Payments
-            </a>
-            <a href="#" class="nav-item" data-target="reports">
-                <span class="material-symbols-rounded">bar_chart</span>
-                Reports
+                <span class="material-symbols-rounded">payments</span>Payments
             </a>
         </div>
         <div class="top-actions">
-            <button class="icon-btn" aria-label="Search">
-                <span class="material-symbols-rounded">search</span>
-            </button>
             <div class="profile-avatar">S</div>
         </div>
     </nav>
 
     <main class="main-content">
-        <!-- Dashboard View -->
+
+        <!-- Dashboard -->
         <section id="dashboard" class="view-section active">
             <header class="section-header">
                 <h2>Overview</h2>
+                <span class="date-badge" id="today-date"></span>
             </header>
 
             <div class="stats-grid">
@@ -67,23 +54,23 @@
                     <div class="stat-icon"><span class="material-symbols-rounded">check_circle</span></div>
                     <div class="stat-info">
                         <span class="label">AVAILABLE</span>
-                        <h3 id="dash-avail">7</h3>
-                        <p id="dash-avail-detail">7 of 20 rooms</p>
+                        <h3 id="dash-avail">—</h3>
+                        <p id="dash-avail-detail"></p>
                     </div>
                 </div>
                 <div class="stat-card" data-status="occupied">
                     <div class="stat-icon"><span class="material-symbols-rounded">group</span></div>
                     <div class="stat-info">
                         <span class="label">OCCUPIED</span>
-                        <h3 id="dash-occ">7</h3>
-                        <p id="dash-occ-detail">35% occupancy</p>
+                        <h3 id="dash-occ">—</h3>
+                        <p id="dash-occ-detail"></p>
                     </div>
                 </div>
                 <div class="stat-card" data-status="reserved">
                     <div class="stat-icon"><span class="material-symbols-rounded">event_note</span></div>
                     <div class="stat-info">
                         <span class="label">RESERVED</span>
-                        <h3 id="dash-res">3</h3>
+                        <h3 id="dash-res">—</h3>
                         <p>Upcoming reservations</p>
                     </div>
                 </div>
@@ -91,7 +78,7 @@
                     <div class="stat-icon"><span class="material-symbols-rounded">cleaning_services</span></div>
                     <div class="stat-info">
                         <span class="label">CLEANING</span>
-                        <h3 id="dash-clean">3</h3>
+                        <h3 id="dash-clean">—</h3>
                         <p>Being prepared</p>
                     </div>
                 </div>
@@ -102,21 +89,18 @@
                     <h3>Today's Activity</h3>
                     <ul class="activity-list">
                         <li>
-                            <div class="activity-label">Check-ins Expected</div>
-                            <div class="activity-value success">0 <span
-                                    class="material-symbols-rounded">chevron_right</span></div>
+                            <div class="activity-label">Check-ins Today</div>
+                            <div class="activity-value success" id="dash-checkins-today">0</div>
                         </li>
                         <li>
-                            <div class="activity-label">Check-outs Expected</div>
-                            <div class="activity-value primary">0</div>
+                            <div class="activity-label">Check-outs Due Today</div>
+                            <div class="activity-value primary" id="dash-checkouts-today">0</div>
                         </li>
                     </ul>
                 </div>
                 <div class="panel">
                     <h3>Room Status Summary</h3>
-                    <div class="progress-list" id="room-status-bars">
-                        <!-- Bars dynamically rendered here -->
-                    </div>
+                    <div class="progress-list" id="room-status-bars"></div>
                 </div>
             </div>
 
@@ -124,33 +108,34 @@
                 <h3>Quick Actions</h3>
                 <div class="quick-actions-grid">
                     <button class="action-card" onclick="startWizard('checkin')">
+                        <span class="action-card-icon material-symbols-rounded">login</span>
                         <h4>Check-In Guest</h4>
                         <p>Start check-in process</p>
-                        <span class="material-symbols-rounded">chevron_right</span>
+                        <span class="material-symbols-rounded arrow">chevron_right</span>
                     </button>
                     <button class="action-card" onclick="startWizard('checkout')">
+                        <span class="action-card-icon material-symbols-rounded">logout</span>
                         <h4>Check-Out Guest</h4>
                         <p>Process departure</p>
-                        <span class="material-symbols-rounded">chevron_right</span>
+                        <span class="material-symbols-rounded arrow">chevron_right</span>
                     </button>
                     <button class="action-card" onclick="startWizard('reservation')">
+                        <span class="action-card-icon material-symbols-rounded">event_available</span>
                         <h4>New Reservation</h4>
                         <p>Book a room in advance</p>
-                        <span class="material-symbols-rounded">chevron_right</span>
+                        <span class="material-symbols-rounded arrow">chevron_right</span>
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- Room Management View -->
+        <!-- Room Management -->
         <section id="room-management" class="view-section">
             <header class="section-header">
                 <div>
                     <h2>Room Management</h2>
                     <p class="subtitle" id="room-count-subtitle">Showing 20 of 20 rooms</p>
                 </div>
-                <button class="btn btn-primary"><span class="material-symbols-rounded">filter_alt</span> Hide
-                    Filters</button>
             </header>
 
             <div class="filters-panel">
@@ -160,108 +145,139 @@
                 <div class="filter-inputs">
                     <div class="input-group">
                         <label>Room Number</label>
-                        <input type="text" placeholder="e.g., 101" id="filter-room-num">
+                        <input type="text" placeholder="e.g. 101" id="filter-room-num">
                     </div>
                     <div class="input-group">
                         <label>Guest Name</label>
-                        <input type="text" placeholder="Search by guest name">
+                        <input type="text" placeholder="Search by guest name" id="filter-guest-name">
                     </div>
                 </div>
                 <div class="filter-pills">
                     <div>
                         <label>Room Status</label>
                         <div class="pills">
-                            <span class="pill status-available">Available</span>
-                            <span class="pill status-occupied">Occupied</span>
-                            <span class="pill status-reserved">Reserved</span>
-                            <span class="pill status-cleaning">Cleaning</span>
+                            <span class="pill status-available" data-filter-status="available">Available</span>
+                            <span class="pill status-occupied" data-filter-status="occupied">Occupied</span>
+                            <span class="pill status-reserved" data-filter-status="reserved">Reserved</span>
+                            <span class="pill status-cleaning" data-filter-status="cleaning">Cleaning</span>
                         </div>
                     </div>
                     <div>
                         <label>Room Type</label>
                         <div class="pills">
-                            <span class="pill type-suite">Suite</span>
-                            <span class="pill type-deluxe">Deluxe</span>
-                            <span class="pill type-standard">Standard</span>
+                            <span class="pill type-suite" data-filter-type="Suite">Suite</span>
+                            <span class="pill type-deluxe" data-filter-type="Deluxe">Deluxe</span>
+                            <span class="pill type-standard" data-filter-type="Standard">Standard</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="rooms-grid" id="rooms-grid">
-                <!-- Room cards rendered dynamically by JS -->
-            </div>
+            <div class="rooms-grid" id="rooms-grid"></div>
         </section>
 
-        <!-- Reservations View -->
+        <!-- Reservations -->
         <section id="reservations" class="view-section">
             <header class="section-header">
                 <div>
                     <h2>Reservations</h2>
-                    <p class="subtitle">Manage upcoming reservations and check-ins</p>
+                    <p class="subtitle">Manage upcoming bookings</p>
                 </div>
+                <button class="btn btn-primary" onclick="startWizard('reservation')">
+                    <span class="material-symbols-rounded">add</span> New Reservation
+                </button>
             </header>
-            <div class="empty-state">
-                <div class="empty-icon"><span class="material-symbols-rounded">event_busy</span></div>
-                <h3>No upcoming reservations</h3>
-                <p>You're all caught up for the day.</p>
-            </div>
+            <div id="reservations-list"></div>
         </section>
 
-        <!-- Guests View -->
+        <!-- Guests -->
         <section id="guests" class="view-section">
             <header class="section-header">
                 <div>
                     <h2>Guest Directory</h2>
-                    <p class="subtitle">View and manage all current and upcoming guests</p>
+                    <p class="subtitle">All current and past guests</p>
                 </div>
             </header>
             <div class="guest-search-bar">
                 <span class="material-symbols-rounded">search</span>
-                <input type="text" placeholder="Search by name, email, phone, or room number...">
+                <input type="text" id="guest-search-input" placeholder="Search by name, email, phone, or room number...">
             </div>
-            <h3 class="subsection-title">Currently Checked-In (7)</h3>
-            <div class="guests-grid" id="guests-grid">
-                <!-- Guest cards rendered dynamically -->
-            </div>
+            <h3 class="subsection-title" id="checked-in-title">Currently Checked-In</h3>
+            <div class="guests-grid" id="guests-grid-in"></div>
+            <h3 class="subsection-title" id="checked-out-title" style="margin-top:2rem">Recently Checked-Out</h3>
+            <div class="guests-grid" id="guests-grid-out"></div>
         </section>
 
-        <!-- Payments View -->
+        <!-- Payments -->
         <section id="payments" class="view-section">
             <header class="section-header">
                 <div>
                     <h2>Payments & Revenue</h2>
-                    <p class="subtitle">Track payments and financial overview</p>
+                    <p class="subtitle">Transaction history and financial summary</p>
                 </div>
             </header>
-            <div class="empty-state">
-                <div class="empty-icon"><span class="material-symbols-rounded">payments</span></div>
-                <h3>Revenue Module Not Active</h3>
-                <p>This is a demonstration section for the HCI class.</p>
+            <div class="stats-grid" style="margin-bottom:1.5rem">
+                <div class="stat-card" data-status="available">
+                    <div class="stat-icon"><span class="material-symbols-rounded">attach_money</span></div>
+                    <div class="stat-info">
+                        <span class="label">TOTAL REVENUE</span>
+                        <h3 id="pay-total-revenue">—</h3>
+                        <p>All transactions</p>
+                    </div>
+                </div>
+                <div class="stat-card" data-status="occupied">
+                    <div class="stat-icon"><span class="material-symbols-rounded">today</span></div>
+                    <div class="stat-info">
+                        <span class="label">TODAY'S REVENUE</span>
+                        <h3 id="pay-today-revenue">—</h3>
+                        <p>Today's transactions</p>
+                    </div>
+                </div>
+                <div class="stat-card" data-status="reserved">
+                    <div class="stat-icon"><span class="material-symbols-rounded">receipt_long</span></div>
+                    <div class="stat-info">
+                        <span class="label">TRANSACTIONS</span>
+                        <h3 id="pay-transaction-count">—</h3>
+                        <p>Total processed</p>
+                    </div>
+                </div>
             </div>
-        </section>
-
-        <!-- Reports View -->
-        <section id="reports" class="view-section">
-            <header class="section-header">
-                <div>
-                    <h2>Reports</h2>
-                    <p class="subtitle">Analytics and insights</p>
-                </div>
-            </header>
-            <div class="empty-state">
-                <div class="empty-icon"><span class="material-symbols-rounded">analytics</span></div>
-                <h3>Reporting is coming soon</h3>
-                <p>We are working on this feature.</p>
+            <div class="panel">
+                <h3>Transaction History</h3>
+                <div id="transactions-list"></div>
             </div>
         </section>
 
     </main>
 
-    <!-- Floating Help Button -->
-    <button class="fab-help" aria-label="Help">?</button>
+    <!-- Wizard Modal Overlay -->
+    <div id="wizard-overlay" class="wizard-overlay hidden">
+        <div class="wizard-modal">
+            <div class="wizard-header">
+                <h2 id="wizard-title">Wizard</h2>
+                <button class="wizard-close-btn" onclick="closeWizard()">
+                    <span class="material-symbols-rounded">close</span>
+                </button>
+            </div>
+            <div class="wizard-steps-bar" id="wizard-steps-indicator"></div>
+            <div class="wizard-body" id="wizard-body"></div>
+            <div class="wizard-footer" id="wizard-footer">
+                <button class="btn btn-outline" id="wizard-back-btn" onclick="wizardBack()">
+                    <span class="material-symbols-rounded">arrow_back</span> Back
+                </button>
+                <button class="btn btn-primary" id="wizard-next-btn" onclick="wizardNext()">
+                    Continue <span class="material-symbols-rounded">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
+    <script src="data.js"></script>
     <script src="app.js"></script>
+    <script>
+        // Show today's date
+        document.getElementById('today-date').innerText =
+            new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+    </script>
 </body>
-
 </html>
