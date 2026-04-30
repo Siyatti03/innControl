@@ -1123,23 +1123,41 @@ function commitReservation() {
 }
 
 /* =====================================================
-   UTILITIES
+   HELPERS
    ===================================================== */
+
 function calcNights(checkIn, checkOut) {
-    if (!checkIn || !checkOut) return 0;
-    const ms = new Date(checkOut) - new Date(checkIn);
-    return Math.max(0, Math.round(ms / (1000 * 60 * 60 * 24)));
+    if (!checkIn || !checkOut) {
+        return 0;
+    }
+
+    const millisecondsPerDay = 1000 * 60 * 60 * 24;
+    const diffInMs = new Date(checkOut) - new Date(checkIn);
+
+    return Math.max(0, Math.round(diffInMs / millisecondsPerDay));
 }
 
 function formatDate(dateStr) {
-    if (!dateStr) return '—';
-    const d = new Date(dateStr + 'T12:00:00');
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    if (!dateStr) {
+        return '—';
+    }
+
+    const date = new Date(`${dateStr}T12:00:00`);
+
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
 }
 
 function capitalize(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
+    const firstLetter = s.charAt(0).toUpperCase();
+    const restOfWord = s.slice(1);
+
+    return firstLetter + restOfWord;
 }
+
 /* =====================================================
    INIT
    ===================================================== */
