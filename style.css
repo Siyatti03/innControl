@@ -885,3 +885,63 @@ h1, h2, h3, h4 { font-weight: 600; }
 .empty-icon span { font-size: inherit; }
 .empty-state h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
 .empty-state p { color: var(--text-muted); }
+
+/* =====================================================
+   LOGIN SECTION
+   ===================================================== */
+.login-wrapper {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+    z-index: 2000;
+}
+.login-box {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: loginModalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes loginModalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.login-header h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    letter-spacing: -0.025em;
+    margin-bottom: 0.5rem;
+}
+.login-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+.login-btn {
+    height: 48px;
+    font-size: 1rem;
+    justify-content: center;
+    transition: all 0.2s;
+    background: linear-gradient(to right, #2563EB, #1D4ED8);
+}
+.login-btn:hover {
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
+}
+.login-btn .material-symbols-rounded {
+    transition: transform 0.2s;
+}
+.login-btn:hover .material-symbols-rounded {
+    transform: translateX(4px);
+}
