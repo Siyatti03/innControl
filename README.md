@@ -22,7 +22,7 @@ innControl is a premium, simplified hotel management system built natively with 
 - `app.js`: Logic to handle simple view navigation and to auto-populate the mock data.
 
 ## Getting Started Locally
-You can double click `index.html` to open it in your browser directly. Alternatively, paste this link on your browser "inncontrol-kohl.vercel.app" to open the live website. if you have python running:
+Since the admin is the sole provider of credential, the admin creates username and password. For this test run, the username is "test@example.com" and the password is "CS4063". Paste this link on your browser "inncontrol-kohl.vercel.app" to open the live website. if you have python running:
 ```bash
 python3 -m http.server 8000
 ```
