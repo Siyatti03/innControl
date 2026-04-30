@@ -1140,7 +1140,6 @@ function formatDate(dateStr) {
 function capitalize(s) {
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
-
 /* =====================================================
    INIT
    ===================================================== */
@@ -1149,7 +1148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderRooms();
     renderGuests();
     initRoomFilters();
-
     document.getElementById('guest-search-input').addEventListener('input', e => {
         renderGuests(e.target.value);
     });
