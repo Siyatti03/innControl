@@ -1,4 +1,21 @@
 /* =====================================================
+   AUTHENTICATION
+   ===================================================== */
+import { auth } from './firebase-config.js';
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // Show dashboard, hide login
+    document.getElementById('dashboard-content').style.display = 'block';
+    document.getElementById('login-section').style.display = 'none';
+  } else {
+    // Show login, hide dashboard
+    document.getElementById('dashboard-content').style.display = 'none';
+    document.getElementById('login-section').style.display = 'block';
+  }
+});
+/* =====================================================
    NAVIGATION
    ===================================================== */
 const navItems = document.querySelectorAll('.nav-item');
