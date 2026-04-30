@@ -38,6 +38,6 @@ To share this repository with your group:
 git add .
 git commit -m "Initial commit of innControl UI"
 git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
+git remote add origin https://github.com/Siyatti03/innControl.git
 git push -u origin main
 ```
