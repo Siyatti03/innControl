@@ -21,12 +21,6 @@ const DEFAULT_STATE = {
         { id: '117', type: 'Standard', rate: 110, status: 'occupied'  },
         { id: '118', type: 'Suite',    rate: 250, status: 'occupied'  },
         { id: '119', type: 'Deluxe',   rate: 175, status: 'available' },
-        { id: '120', type: 'Standard', rate: 110, status: 'available' },
-        { id: '121', type: 'Standard', rate: 110, status: 'available' },
-        { id: '122', type: 'Standard', rate: 110, status: 'available' },
-        { id: '123', type: 'Standard', rate: 110, status: 'available' },
-        { id: '124', type: 'Standard', rate: 110, status: 'available' },
-        { id: '125', type: 'Standard', rate: 110, status: 'available' }
     ],
     guests: [
         {
