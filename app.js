@@ -2,7 +2,7 @@
    AUTHENTICATION
    ===================================================== */
 import { auth } from './firebase-config.js';
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -12,9 +12,53 @@ onAuthStateChanged(auth, (user) => {
   } else {
     // Show login, hide dashboard
     document.getElementById('dashboard-content').style.display = 'none';
-    document.getElementById('login-section').style.display = 'block';
+    document.getElementById('login-section').style.display = 'flex';
   }
 });
+
+// =====================================================
+// LOGIN HANDLER
+// =====================================================
+const loginForm = document.getElementById('login-form');
+const loginError = document.getElementById('login-error');
+const loginBtn = document.getElementById('login-submit-btn');
+
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        
+        try {
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = 'Signing In...';
+            loginError.classList.add('hidden');
+            
+            await signInWithEmailAndPassword(auth, email, password);
+            loginForm.reset();
+        } catch (error) {
+            loginError.innerText = "Invalid email or password. Please try again.";
+            loginError.classList.remove('hidden');
+        } finally {
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = 'Sign In <span class="material-symbols-rounded">arrow_forward</span>';
+        }
+    });
+}
+
+// =====================================================
+// LOGOUT HANDLER
+// =====================================================
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error("Error signing out:", error);
+        }
+    });
+}
 /* =====================================================
    NAVIGATION
    ===================================================== */

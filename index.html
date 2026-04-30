@@ -16,6 +16,33 @@
 
 <body>
 
+    <!-- Login Section -->
+    <div id="login-section" class="login-wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>innControl</h1>
+                <p>Welcome back! Please sign in to continue.</p>
+            </div>
+            <form id="login-form" class="login-form">
+                <div id="login-error" class="wizard-error hidden" style="margin-right:0; margin-bottom: 1rem;"></div>
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="login-email" placeholder="admin@inncontrol.com" required>
+                </div>
+                <div class="input-group" style="margin-top: 1.25rem;">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" id="login-submit-btn" class="btn btn-primary login-btn" style="margin-top: 1.5rem; width: 100%;">
+                    Sign In <span class="material-symbols-rounded">arrow_forward</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div id="dashboard-content" style="display:none;">
+
     <!-- Top Navigation -->
     <nav class="topbar">
         <div class="logo"><h1>innControl</h1></div>
@@ -37,6 +64,9 @@
             </a>
         </div>
         <div class="top-actions">
+            <button id="logout-btn" class="btn btn-outline btn-sm" style="border:none; background:transparent;">
+                <span class="material-symbols-rounded">logout</span>
+            </button>
             <div class="profile-avatar">S</div>
         </div>
     </nav>
@@ -272,9 +302,10 @@
             </div>
         </div>
     </div>
+    
+    </div> <!-- End Dashboard Content -->
 
     <script src="data.js"></script>
-    <script src="app.js"></script>
     <script>
         // Show today's date
         document.getElementById('today-date').innerText =
