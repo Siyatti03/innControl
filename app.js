@@ -31,27 +31,14 @@ loginForm.addEventListener('submit', async (e) => {
     const email    = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
 
-    loginError.classList.add('hidden');
-
-    if (!email || !password) {
-        loginError.innerText = 'Please enter both email and password.';
-        loginError.classList.remove('hidden');
-        return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        loginError.innerText = 'Please enter a valid email address.';
-        loginError.classList.remove('hidden');
-        return;
-    }
-
     loginBtn.disabled  = true;
     loginBtn.innerHTML = 'Signing In...';
+    loginError.classList.add('hidden');
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
         loginForm.reset();
-    } catch (err) {
+    } catch {
         loginError.innerText = 'Invalid email or password. Please try again.';
         loginError.classList.remove('hidden');
     } finally {
