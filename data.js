@@ -1,5 +1,4 @@
 const DEFAULT_STATE = {
-    // Manual adjustments to room statuses for testing
     rooms: [
         { id: '100', type: 'Suite',    rate: 250, status: 'available' },
         { id: '101', type: 'Deluxe',   rate: 175, status: 'available' },
