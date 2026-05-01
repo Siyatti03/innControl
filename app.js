@@ -1366,11 +1366,10 @@ function collectFields(ids) {
         }
 
         // Extra validation for phone
-        if (id === 'phone' && !/^\d{3}-?\d{3}-?\d{4}$/.test(v)) {
-            showError('Please enter a valid phone number, like 555-0100 or 5551234567.');
-            document.getElementById('f-' + id)?.focus();
+        if (id === 'phone' && !/^[\d-]{7,15}$/.test(v)) {
+            showError('Please enter a valid phone number.');
             return false;
-        }
+        }}
         wizard.data[id] = v;
     }
     return true;
