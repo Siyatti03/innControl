@@ -1341,24 +1341,28 @@ function collectFields(ids) {
 
     for (const id of ids) {
         const v = val('f-' + id);
+
         if (!v) {
             showError(`Please fill in: ${labels[id] || id}`);
             document.getElementById('f-' + id)?.focus();
             return false;
         }
+
         if (id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
             showError('Please enter a valid email address.');
             document.getElementById('f-' + id)?.focus();
             return false;
         }
 
-        // Extra validation for phone
         if (id === 'phone' && !/^[\d-]{7,15}$/.test(v)) {
             showError('Please enter a valid phone number.');
+            document.getElementById('f-' + id)?.focus();
             return false;
-        }}
+        }
+
         wizard.data[id] = v;
     }
+
     return true;
 }
 
