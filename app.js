@@ -27,14 +27,14 @@ const loginBtn   = document.getElementById('login-submit-btn');
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
+ 
     const email    = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
-
+ 
     loginBtn.disabled  = true;
     loginBtn.innerHTML = 'Signing In...';
     loginError.classList.add('hidden');
-
+ 
     try {
         await signInWithEmailAndPassword(auth, email, password);
         loginForm.reset();
