@@ -31,14 +31,27 @@ loginForm.addEventListener('submit', async (e) => {
     const email    = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
 
+    loginError.classList.add('hidden');
+
+    if (!email || !password) {
+        loginError.innerText = 'Please enter both email and password.';
+        loginError.classList.remove('hidden');
+        return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        loginError.innerText = 'Please enter a valid email address.';
+        loginError.classList.remove('hidden');
+        return;
+    }
+
     loginBtn.disabled  = true;
     loginBtn.innerHTML = 'Signing In...';
-    loginError.classList.add('hidden');
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
         loginForm.reset();
-    } catch {
+    } catch (err) {
         loginError.innerText = 'Invalid email or password. Please try again.';
         loginError.classList.remove('hidden');
     } finally {
@@ -1343,6 +1356,18 @@ function collectFields(ids) {
         const v = val('f-' + id);
         if (!v) {
             showError(`Please fill in: ${labels[id] || id}`);
+            document.getElementById('f-' + id)?.focus();
+            return false;
+        }
+        if (id === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+            showError('Please enter a valid email address.');
+            document.getElementById('f-' + id)?.focus();
+            return false;
+        }
+
+        // Extra validation for phone
+        if (id === 'phone' && !/^\d{3}-?\d{3}-?\d{4}$/.test(v)) {
+            showError('Please enter a valid phone number, like 555-0100 or 5551234567.');
             document.getElementById('f-' + id)?.focus();
             return false;
         }
